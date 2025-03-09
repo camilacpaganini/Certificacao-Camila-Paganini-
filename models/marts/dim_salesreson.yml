@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: dim_motivo_venda
+    description: "Dimensão de motivos pelos quais os pedidos foram realizados."
+    columns:
+      - name: pk_motivo_venda
+        description: "ID único do motivo da venda"
+        tests:
+          - unique
+          - not_null
+
+      - name: nome_motivo
+        description: "Nome do motivo da venda"
+        tests:
+          - not_null

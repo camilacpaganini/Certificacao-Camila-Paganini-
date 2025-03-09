@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: int_cartao
+    description: "Modelo intermediário que processa os tipos de cartões utilizados pelos clientes."
+    columns:
+      - name: pk_cartao
+        description: "ID único do cartão de crédito"
+        tests:
+          - unique
+          - not_null
+
+      - name: tipo_cartao
+        description: "Tipo do cartão de crédito (Visa, Mastercard, etc.)"
+        tests:
+          - not_null

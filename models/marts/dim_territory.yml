@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: dim_territorio
+    description: "Dimensão de territórios baseada nos endereços únicos."
+    columns:
+      - name: pk_territorio
+        description: "ID único do território baseado no endereço (ADDRESSID)"
+        tests:
+          - unique
+          - not_null
+
+      - name: cidade
+        description: "Nome da cidade"
+        tests:
+          - not_null
+
+      - name: estado
+        description: "Nome do estado"
+        tests:
+          - not_null
+
+      - name: pais
+        description: "Nome do país"
+        tests:
+          - not_null
+
+      - name: codigo_postal
+        description: "Código postal do endereço"
+
+      - name: modified_date_address
+        description: "Última modificação do endereço"
+
+      - name: modified_date_state
+        description: "Última modificação do estado"

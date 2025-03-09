@@ -1,0 +1,212 @@
+sources:
+  - name: erp
+    database: FEA24_11
+    schema: raw_adventure_works
+    tables:
+
+      - name: Product
+        description: "Tabela de produtos vendidos"
+        columns:
+          - name: PRODUCTID
+            description: "ID único do produto"
+            tests:
+              - unique
+              - not_null
+          - name: NAME
+            description: "Nome do produto"
+            tests:
+              - not_null
+          - name: PRODUCTSUBCATEGORYID
+            description: "ID da subcategoria do produto"
+            tests:
+              - relationships:
+                  to: source('raw_adventure_works', 'ProductSubcategory')
+                  field: PRODUCTSUBCATEGORYID
+
+      - name: ProductSubcategory
+        description: "Tabela de subcategorias de produtos"
+        columns:
+          - name: PRODUCTSUBCATEGORYID
+            description: "ID único da subcategoria"
+            tests:
+              - unique
+              - not_null
+          - name: PRODUCTCATEGORYID
+            description: "ID da categoria do produto"
+            tests:
+              - relationships:
+                  to: source('raw_adventure_works', 'ProductCategory')
+                  field: PRODUCTCATEGORYID
+
+      - name: ProductCategory
+        description: "Tabela de categorias de produtos"
+        columns:
+          - name: PRODUCTCATEGORYID
+            description: "ID único da categoria"
+            tests:
+              - unique
+              - not_null
+          - name: NAME
+            description: "Nome da categoria"
+            tests:
+              - not_null
+      - name: Customer
+        description: "Tabela de clientes"
+        columns:
+          - name: CUSTOMERID
+            description: "ID único do cliente"
+            tests:
+              - unique
+              - not_null
+          - name: PERSONID
+            description: "ID da pessoa associada ao cliente"
+          - name: STOREID
+            description: "ID da empresa associada ao cliente"
+
+      - name: Person
+        description: "Tabela de informações pessoais de clientes"
+        columns:
+          - name: BUSINESSENTITYID
+            description: "ID do cliente, chave para Customer.PERSONID"
+          - name: FIRSTNAME
+            description: "Primeiro nome do cliente"
+          - name: LASTNAME
+            description: "Último nome do cliente"
+
+      - name: Store
+        description: "Tabela de informações de empresas"
+        columns:
+          - name: BUSINESSENTITYID
+            description: "ID da empresa, chave para Customer.STOREID"
+          - name: NAME
+            description: "Nome da empresa"
+
+      - name: BusinessEntityAddress
+        description: "Tabela de relacionamento entre clientes e endereços"
+        columns:
+          - name: BUSINESSENTITYID
+            description: "ID do cliente"
+          - name: ADDRESSID
+            description: "ID do endereço do cliente"
+
+      - name: Address
+        description: "Tabela de endereços"
+        columns:
+          - name: ADDRESSID
+            description: "ID do endereço"
+          - name: ADDRESSLINE1
+            description: "Linha 1 do endereço"
+          - name: CITY
+            description: "Cidade do cliente"
+          - name: POSTALCODE
+            description: "Código postal"
+            tests:
+              - not_null
+          - name: STATEPROVINCEID
+            description: "ID do estado, referência para StateProvince"
+
+      - name: StateProvince
+        description: "Tabela de estados e regiões"
+        columns:
+          - name: STATEPROVINCEID
+            description: "ID único do estado"
+            tests:
+              - unique
+              - not_null
+          - name: NAME
+            description: "Nome do estado"
+            tests:
+              - not_null
+          - name: COUNTRYREGIONCODE
+            description: "Código do país"
+            tests:
+              - not_null
+
+      - name: CreditCard
+        description: "Tabela de cartões de crédito dos clientes"
+        columns:
+          - name: CREDITCARDID
+            description: "ID único do cartão de crédito"
+            tests:
+              - unique
+              - not_null
+          - name: CARDTYPE
+            description: "Tipo do cartão de crédito (Visa, Mastercard, etc.)"
+            tests:
+              - not_null
+
+      - name: SalesReason
+        description: "Tabela de motivos pelos quais os pedidos foram realizados"
+        columns:
+          - name: SALESREASONID
+            description: "ID único do motivo da venda"
+            tests:
+              - unique
+              - not_null
+          - name: NAME
+            description: "Nome do motivo da venda"
+            tests:
+              - not_null
+
+      - name: SalesOrderHeader
+        description: "Cabeçalho dos pedidos de venda."
+        columns:
+          - name: SALESORDERID
+            description: "ID do pedido"
+            tests:
+              - unique
+              - not_null
+
+          - name: CUSTOMERID
+            description: "ID do cliente"
+
+          - name: SHIPTOADDRESSID
+            description: "ID do endereço de entrega"
+
+          - name: CREDITCARDID
+            description: "ID do cartão de crédito"
+
+          - name: ORDERDATE
+            description: "Data do pedido"
+
+          - name: FREIGHT
+            description: "Valor total do frete"
+
+          - name: TOTALDUE
+            description: "Valor total do pedido"
+
+      - name: SalesOrderDetail
+        description: "Detalhes dos produtos nos pedidos de venda."
+        columns:
+          - name: SALESORDERID
+            description: "ID do pedido (chave estrangeira para SalesOrderHeader)"
+
+          - name: SALESORDERDETAILID
+            description: "ID único do detalhe do pedido"
+
+          - name: PRODUCTID
+            description: "ID do produto vendido"
+
+          - name: ORDERQTY
+            description: "Quantidade de produtos comprados"
+
+          - name: UNITPRICE
+            description: "Preço unitário do produto"
+
+          - name: UNITPRICEDISCOUNT
+            description: "Desconto aplicado ao produto"
+            
+      - name: SalesOrderHeaderSalesReason
+        description: "Relacionamento entre pedidos e motivos de venda."
+        columns:
+          - name: SALESORDERID
+            description: "ID do pedido (chave estrangeira para SalesOrderHeader)."
+            tests:
+              - not_null
+
+          - name: SALESREASONID
+            description: "ID do motivo da venda (chave estrangeira para SalesReason)."
+            tests:
+              - not_null
+
+      

@@ -1,0 +1,75 @@
+version: 2
+
+models:
+  - name: int_fato_pedido
+    description: "Tabela intermediária que consolida as informações de pedidos, incluindo cliente, produto, cartão de crédito, motivo de venda e valores financeiros."
+    columns:
+      - name: pk_pedido_detalhe
+        description: "Chave primária da tabela fato, composta por fk_pedido e fk_produto."
+        tests:
+          - unique
+          - not_null
+
+      - name: fk_pedido
+        description: "Chave estrangeira para o pedido."
+        tests:
+          - not_null
+
+      - name: fk_cliente
+        description: "Chave estrangeira para o cliente que realizou o pedido."
+        tests:
+          - not_null
+
+      - name: fk_cartao
+        description: "Chave estrangeira para o cartão de crédito utilizado."
+        tests:
+          - not_null
+
+      - name: fk_motivo_venda_agrupado
+        description: "Motivos da venda agregados para um mesmo pedido."
+        tests: []
+
+      - name: fk_produto
+        description: "Chave estrangeira para o produto vendido."
+        tests:
+          - not_null
+
+      - name: data_pedido
+        description: "Data em que o pedido foi realizado."
+        tests:
+          - not_null
+
+      - name: fk_territorio
+        description: "Chave estrangeira para o território onde ocorreu a venda."
+        tests:
+          - not_null
+
+      - name: quantidade
+        description: "Quantidade de produtos vendidos."
+        tests:
+          - not_null
+
+      - name: preco_unitario
+        description: "Preço unitário do produto no momento da venda."
+        tests:
+          - not_null
+
+      - name: desconto
+        description: "Valor de desconto aplicado ao produto."
+        tests:
+          - not_null
+
+      - name: total_bruto
+        description: "Total bruto da venda (quantidade * preço_unitário)."
+        tests:
+          - not_null
+
+      - name: total_liquido
+        description: "Total líquido da venda (total_bruto - desconto)."
+        tests:
+          - not_null
+
+      - name: valor_frete
+        description: "Valor do frete associado ao pedido."
+        tests: []
+

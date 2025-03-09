@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: dim_cartao
+    description: "Dimensão de cartões de crédito utilizados pelos clientes."
+    columns:
+      - name: pk_cartao
+        description: "ID único do cartão de crédito"
+        tests:
+          - unique
+          - not_null
+
+      - name: tipo_cartao
+        description: "Tipo do cartão de crédito (Visa, Mastercard, etc.)"
+        tests:
+          - not_null

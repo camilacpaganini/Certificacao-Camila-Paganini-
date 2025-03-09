@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: int_cliente
+    description: "Modelo intermediário que une Customer, Person, Store e BusinessEntityAddress para formar a dimensão de clientes."
+    columns:
+      - name: pk_cliente
+        description: "ID único do cliente"
+        tests:
+          - unique
+          - not_null
+
+      - name: nome_cliente
+        description: "Nome do cliente ou 'Cliente Desconhecido' se for empresa"
+        tests:
+          - not_null
+
+      - name: fk_endereco
+        description: "ID do endereço do cliente"
+        tests:
+          - not_null

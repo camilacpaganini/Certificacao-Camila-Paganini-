@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: int_motivo_venda
+    description: "Relaciona os pedidos aos seus motivos de venda, agrupando múltiplos motivos por pedido."
+    columns:
+      - name: pk_pedido_motivovenda
+        description: "ID do pedido relacionado aos motivos de venda."
+        tests:
+          - unique
+          - not_null
+
+      - name: fk_motivo_venda_agrupado
+        description: "Lista de motivos de venda concatenados para o pedido."
+        tests:
+          - not_null
+
+

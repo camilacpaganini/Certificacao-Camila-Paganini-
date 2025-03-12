@@ -7,6 +7,7 @@ WITH
         SELECT 
             CAST(SALESREASONID AS INT) AS pk_motivo_venda
         ,   CAST(NAME AS STRING) AS nome_motivo
+        ,   CAST(REASONTYPE AS STRING) AS tipo_motivo
         FROM fonte_motivos
     )
 

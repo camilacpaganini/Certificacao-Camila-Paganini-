@@ -6,7 +6,7 @@ WITH motivos AS (
 )
 , consolidado AS (
     SELECT 
-        CAST(motivos.fk_pedido AS STRING) || '-' || COALESCE(CAST(detalhes.fk_produto AS STRING), 'SEM_PRODUTO') AS pk_pedido_motivovenda, -- 🔹 Corrigindo conversão de tipos
+        CAST(motivos.fk_pedido AS STRING) || '-' || COALESCE(CAST(detalhes.fk_produto AS STRING), 'SEM_PRODUTO') AS pk_pedido_motivovenda, 
         motivos.fk_pedido,
         LISTAGG(descricao_motivos.nome_motivo, ', ') WITHIN GROUP (ORDER BY descricao_motivos.nome_motivo) AS fk_motivo_venda_agrupado
     FROM motivos
